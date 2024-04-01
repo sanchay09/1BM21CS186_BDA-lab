@@ -1,0 +1,16 @@
+//Query - 1//
+//Create a database “Student” with the following attributes  Rollno, Age, ContactNo, Email-Id.//
+db.createCollection("Student")
+
+//Query - 2//
+//Insert appropriate values//
+Create a database “Student” with the following attributes  Rollno, Age, ContactNo, Email-Id.
+db.students.insertMany([{ "Rollno": 10, "Name": "Akhil", "Age": 20, "ContactNo": "1234567890", "Email-Id": "akhil@gmail.com" }, { "Rollno": 11, "Name": "Arun", "Age": 22, "ContactNo": "9876543210", "Email-Id": "arun@gmail.com" }, { "Rollno": 12, "Name": "Bob", "Age": 21, "ContactNo": "4567890123", "Email-Id": "bob@gmail.com" }, { "Rollno": 13, "Name": "Charlie", "Age": 19, "ContactNo": "7890123456", "Email-Id": "charlie@gmail.com" }, { "Rollno": 14, "Name": "David", "Age": 20, "ContactNo": "3216549870", "Email-Id": "david@gmail.com" }])
+
+//Query - 3//
+//Write query to update Email-Id of a student with rollno 10.//
+db.students.updateOne({ "Rollno": 10 }, { $set: { "Email-Id": "newemail@gmail.com" }})
+
+//Query - 4//
+//Replace the student name from “David” to “Davidcc” of rollno 11//
+db.students.updateOne({ "Rollno": 11 }, { $set: { "Name": "Davidcc" }})
