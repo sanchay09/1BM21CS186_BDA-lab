@@ -1,0 +1,35 @@
+Perform the following DB operations using MongoDB.
+1. Create a collection by name Customers with the following attributes: Cust_id, Acc_Bal, Acc_Type
+use Customer
+db.createCollection("Customers")
+
+2. Insert at least 5 values into the table
+db.Customers.insertMany([
+    { "Cust_id": 1, "Acc_Bal": 1000, "Acc_Type": "X" },
+    { "Cust_id": 2, "Acc_Bal": 1500, "Acc_Type": "Y" },
+    { "Cust_id": 3, "Acc_Bal": 2000, "Acc_Type": "Z" },
+    { "Cust_id": 4, "Acc_Bal": 1200, "Acc_Type": "Z" },
+    { "Cust_id": 5, "Acc_Bal": 1300, "Acc_Type": "Z" }
+])
+
+
+3. Write a query to display those records whose total account balance is greater than 1200 of account type ‘Z’ for each customer_id.
+db.Customers.aggregate([
+    { $match: { "Acc_Type": "Z" } },
+    { $group: { "_id": "$Cust_id", "total_balance": { $sum: "$Acc_Bal" } } },
+    { $match: { "total_balance": { $gt: 1200 } } }
+])
+
+
+4. Determine Minimum and Maximum account balance for each customer_id
+db.Customers.aggregate([
+    { $group: { "_id": "$Cust_id", "min_balance": { $min: "$Acc_Bal" }, "max_balance": { $max: "$Acc_Bal" } } }
+])
+
+
+5. Sort the documents based on Customer ID in ascending order and Account Balance in descending order
+db.Customers.find().sort({ "Cust_id": 1, "Acc_Bal": -1 })
+
+
+6. Display only 2nd and 3rd records from the collection
+db.Customers.find().skip(1).limit(2)

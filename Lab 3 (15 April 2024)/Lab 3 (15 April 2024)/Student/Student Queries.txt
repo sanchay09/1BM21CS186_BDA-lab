@@ -1,0 +1,45 @@
+Perform the following DB operations using MongoDB commands: 
+1. Create a database “Student” with the following attributes  Rollno, Name , Age, ContactNo, Email-Id, grade, hobby
+use Students
+
+2. Insert 5 appropriate values according to the below queries.
+db.students.insertMany([
+    { "Rollno": 10, "Name": "John", "Age": 20, "ContactNo": "1234567890", "Email-Id": "john@example.com", "grade": "A", "hobby": "Reading" },
+    { "Rollno": 11, "Name": "Alice", "Age": 21, "ContactNo": "9876543210", "Email-Id": "alice@example.com", "grade": "B", "hobby": "Painting" },
+    { "Rollno": 12, "Name": "Bob", "Age": 22, "ContactNo": "2345678901", "Email-Id": "bob@example.com", "grade": "C", "hobby": "Cooking" },
+    { "Rollno": 13, "Name": "Eve", "Age": 23, "ContactNo": "3456789012", "Email-Id": "eve@example.com", "grade": "A" },
+    { "Rollno": 14, "Name": "Charlie", "Age": 24, "ContactNo": "4567890123", "Email-Id": "charlie@example.com", "hobby": "Gardening" }
+])
+
+
+3. Write query to update Email-Id of a student with rollno 10.
+db.students.updateOne(
+    { "Rollno": 10 },
+    { $set: { "Email-Id": "john.doe@example.com" } }
+)
+
+
+4. Replace the student name from “Alice” to “Alicee” of rollno 11
+db.students.updateOne(
+    { "Rollno": 11 },
+    { $set: { "Name": "Alicee" } }
+)
+
+
+5. Display Student Name and grade(Add if grade is not present)where the _id  column is 1.
+db.students.find({}, { "Name": 1, "grade": { $ifNull: ["$grade", "Not available"] }, "_id": 0 })
+
+
+6. Update to add hobbies
+db.students.updateMany(
+    { "Name": "Eve" },
+    { $set: { "hobby": "Dancing" } }
+)
+
+
+7. Find documents where hobbies is set neither to Chess nor to Skating
+db.students.find({ "hobby": { $nin: ["Chess", "Skating"] } })
+
+
+8. Find documents whose name begins with A
+db.students.find({ "Name": /^A/ })
